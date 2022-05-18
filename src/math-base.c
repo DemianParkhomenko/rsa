@@ -25,6 +25,8 @@ void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD) {
     if (1 == gcd && smallValuesForE[i] < *pPhiResult &&
         *pD * smallValuesForE[i] % *pPhiResult == 1) {
       *pE = smallValuesForE[i];
+      printf("%d * %d + %d * %d = %d\n", unnecessaryVar, *pPhiResult, *pD,
+             smallValuesForE[i], gcd);
       return;
     }
   }
