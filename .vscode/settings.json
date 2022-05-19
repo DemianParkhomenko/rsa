@@ -6,7 +6,11 @@
     "array": "c",
     "string_view": "c",
     "another.h": "c",
-    "stdint.h": "c"
+    "stdint.h": "c",
+    "assert.h": "c",
+    "inttypes.h": "c",
+    "integration-test.h": "c",
+    "key-gen.h": "c"
   }
 }
 // I guess it creates itself

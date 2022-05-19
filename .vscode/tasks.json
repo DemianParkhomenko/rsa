@@ -9,6 +9,7 @@
         "-fdiagnostics-color=always",
         "-g",
         "${fileDirname}/*.c", //* compile all .c files /0/0 "/"
+        "../tests/*.c",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}.out",
         "-lm" //*means "link math.h". Must be add the end of flags

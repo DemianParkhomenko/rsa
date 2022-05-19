@@ -4,8 +4,6 @@
 
 uint64_t phi(uint64_t p, uint64_t q) { return (p - 1) * (q - 1); }
 
-//* Extended Euclidean algorithm. Compute modular multiplicative inverse and gcd
-//* pTi is inverse to r1 by mod r0 <-- important
 uint64_t eea(uint64_t r0, uint64_t r1, uint64_t *pTi) {
   uint64_t t0 = 0, t1 = 1, i = 2, ri;
   do {
@@ -22,7 +20,7 @@ uint64_t eea(uint64_t r0, uint64_t r1, uint64_t *pTi) {
 }
 
 void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD) {
-  uint64_t smallValuesForE[] = {3, 17, 65537};
+  uint64_t smallValuesForE[] = {3, 5, 17, 257, 65537};
   size_t size = sizeof smallValuesForE / sizeof smallValuesForE[0];
   for (int i = 0; i < size; i++) {
     uint64_t gcd = eea(*pPhiResult, smallValuesForE[i], pD);
