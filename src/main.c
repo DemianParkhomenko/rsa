@@ -37,6 +37,7 @@ int main() {
   FILE *initalFile = fopen(INITIAL_FILE_PATH, "r");
   FILE *encryptedFile = fopen(ENCRYPTED_FILE_PATH, "w+");
   FILE *decryptedFile = fopen(DECRYPTED_FILE_PATH, "w");
+  assert(initalFile != NULL && encryptedFile != NULL && decryptedFile != NULL);
 
   encryptTxt(initalFile, encryptedFile, e, n);
   decryptTxt(encryptedFile, decryptedFile, d, n);
