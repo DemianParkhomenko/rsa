@@ -1,5 +1,5 @@
 #pragma once
-void generatePQ(unsigned long long int *P, unsigned long long int *Q);
-void choosePublicKey(unsigned long long int phiOfN);
-void computePrivateKey(unsigned long long int phiOfN);
-void generateKeys();
+#include <stdint.h>
+
+uint64_t phi(uint64_t p, uint64_t q);
+void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD);

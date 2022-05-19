@@ -8,10 +8,10 @@
       "args": [
         "-fdiagnostics-color=always",
         "-g",
-        "${file}",
+        "${fileDirname}/*.c", //* compile all .c files /0/0 "/"
         "-o",
-        "${fileDirname}/${fileBasenameNoExtension}",
-        "-lm"//*means "link math.h". Must be add the end of flags
+        "${fileDirname}/${fileBasenameNoExtension}.out",
+        "-lm" //*means "link math.h". Must be add the end of flags
       ],
       "options": {
         "cwd": "${fileDirname}"

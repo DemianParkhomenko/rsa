@@ -5,7 +5,8 @@
     "random": "c",
     "array": "c",
     "string_view": "c",
-    "another.h": "c"
+    "another.h": "c",
+    "stdint.h": "c"
   }
 }
 // I guess it creates itself
