@@ -2,6 +2,7 @@
 #include "../src/key-gen.h"
 #include <assert.h>
 #include <stdint.h>
+
 const char *GREEN = "\033[0;32m";
 const char *RED = "\033[0;31m";
 const char *RESET = "\033[0m";
@@ -52,7 +53,7 @@ void integrationTests() {
   makeTest(7159, 7919, 'I');
   makeTest(7027, 6359, 'N');
   makeTest(7919, 2351, 'E');
-  makeTest(3, 7,
+  makeTest(3, 11,
            '\0'); //*  the binary value of the plaintext x must be less than n
   //* so use null character which has 0 binary representation in ASCII table
 }

@@ -24,7 +24,8 @@ void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD) {
   for (int i = 0; i < size; i++) {
     uint64_t gcd = eea(*pPhiResult, smallValuesForE[i], pD);
     if (1 == gcd && smallValuesForE[i] < *pPhiResult &&
-        *pD * smallValuesForE[i] % *pPhiResult == 1) {
+        *pD * smallValuesForE[i] % *pPhiResult == 1 &&
+        smallValuesForE[i] != *pD) {
       *pE = smallValuesForE[i];
       return;
     }
