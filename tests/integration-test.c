@@ -4,7 +4,6 @@
 #include <stdint.h>
 
 const char *GREEN = "\033[0;32m";
-const char *RED = "\033[0;31m";
 const char *RESET = "\033[0m";
 
 void makeTest(uint64_t p, uint64_t q, char x) {
@@ -13,35 +12,28 @@ void makeTest(uint64_t p, uint64_t q, char x) {
   uint64_t e;
   uint64_t d;
   keyGeneration(&phiResult, &e, &d);
+  assert(e < n);
 
   uint64_t dummy; //*don't reassign private key
   uint64_t gcdPhiResultAndE = eea(phiResult, e, &dummy);
   uint64_t modInverseResEAndD = e * d % phiResult;
   assert(1 == gcdPhiResultAndE);
   assert(1 == modInverseResEAndD);
-
   uint64_t encrypted = exponentAndMod((uint64_t)x, e, n);
   char decrypted = (char)exponentAndMod(encrypted, d, n);
   assert(x == decrypted);
 
-  if (x == decrypted) {
-    printf("%sTest with p: %d, q: %d is valid.%s\n", GREEN, p, q, RESET);
-  } else {
-    printf("%sEXCEPTION: Test with p: %llu, q: %d is NOT valid.%s\n", RED, p, q,
-           RESET);
-  }
-  if (p < 21 && q < 21) {
-    printf("\n\nExample with small numbers\n"
-           "p: %d\n"
-           "q: %d\n"
-           "n: %d\n"
-           "phiResult: %d\n"
-           "e: %d\n"
-           "gcd of phi(n) and e: %d\n"
-           "d: %d\n"
-           "Modular multiplicative inverse. e * d mod phi(n):%d\n",
-           p, q, n, phiResult, e, gcdPhiResultAndE, d, modInverseResEAndD);
-  }
+  printf("\n%sTest with p: %d, q: %d is valid.%s\n", GREEN, p, q, RESET);
+
+  printf("p: %d\n"
+         "q: %d\n"
+         "n: %d\n"
+         "phiResult: %d\n"
+         "e: %d\n"
+         "gcd of phi(n) and e: %d\n"
+         "d: %d\n"
+         "Modular multiplicative inverse. e * d mod phi(n):%d\n",
+         p, q, n, phiResult, e, gcdPhiResultAndE, d, modInverseResEAndD);
 }
 
 void integrationTests() {
