@@ -11,6 +11,7 @@ const char *INITIAL_FILE_PATH = "./txt/initial.txt";
 const char *ENCRYPTED_FILE_PATH = "./txt/encrypted.txt";
 const char *DECRYPTED_FILE_PATH = "./txt/decrypted.txt";
 
+//* if test == 1. All tests run on the startup
 #define test 1
 
 int main() {
