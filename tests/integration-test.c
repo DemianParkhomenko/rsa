@@ -25,14 +25,14 @@ void makeTest(uint64_t p, uint64_t q, char x) {
 
   printf("\n%sTest with p: %d, q: %d is valid.%s\n", GREEN, p, q, RESET);
 
-  printf("p: %d\n"
-         "q: %d\n"
-         "n: %d\n"
-         "phiResult: %d\n"
-         "e: %d\n"
-         "gcd of phi(n) and e: %d\n"
-         "d: %d\n"
-         "Modular multiplicative inverse. e * d mod phi(n):%d\n",
+  printf("• p: %d\n"
+         "• q: %d\n"
+         "• n: %d\n"
+         "• phiResult: %d\n"
+         "• e: %d\n"
+         "• gcd of phi(n) and e: %d\n"
+         "• d: %d\n"
+         "• Modular multiplicative inverse. e * d mod phi(n):%d\n",
          p, q, n, phiResult, e, gcdPhiResultAndE, d, modInverseResEAndD);
 }
 
@@ -47,5 +47,6 @@ void integrationTests() {
   makeTest(7919, 2351, 'E');
   makeTest(3, 11,
            '\0'); //*  the binary value of the plaintext x must be less than n
-  //* so use null character which has 0 binary representation in ASCII table
+  //* so use null character which has 0 binary representation in ASCII table for
+  //* small p and q (p*q = n)
 }

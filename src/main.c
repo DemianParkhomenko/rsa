@@ -26,13 +26,13 @@ int main() {
   uint64_t d;
   keyGeneration(&phiResult, &e, &d);
 
-  printf("\nLogs from main\n"
-         "p: %" PRIu64 "\n"
-         "q: %" PRIu64 "\n"
-         "n: %" PRIu64 "\n"
-         "phiResult: %" PRIu64 "\n"
-         "e: %" PRIu64 "\n"
-         "d: %" PRIu64 "\n",
+  printf("\nLogs from main:\n"
+         "• p: %" PRIu64 "\n"
+         "• q: %" PRIu64 "\n"
+         "• n: %" PRIu64 "\n"
+         "• phiResult: %" PRIu64 "\n"
+         "• e: %" PRIu64 "\n"
+         "• d: %" PRIu64 "\n",
          p, q, n, phiResult, e, d);
 
   FILE *initalFile = fopen(INITIAL_FILE_PATH, "r");
