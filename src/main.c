@@ -19,12 +19,17 @@ int main() {
     integrationTests();
   }
   uint64_t p = 143669;
-  uint64_t q = 7159;
+  uint64_t q = 28051;
   uint64_t n = p * q;
   uint64_t phiResult = phi(p, q);
   uint64_t e;
   uint64_t d;
-  keyGeneration(&phiResult, &e, &d);
+  short binEArr[64];
+  short binENumberOfBits;
+  short binDArr[64];
+  short binDNumberOfBits;
+  keyGeneration(&phiResult, &e, &d, binEArr, &binENumberOfBits, binDArr,
+                &binDNumberOfBits);
 
   printf("\nLogs from main:\n"
          "• p: %" PRIu64 "\n"
@@ -40,8 +45,8 @@ int main() {
   FILE *decryptedFile = fopen(DECRYPTED_FILE_PATH, "w");
   assert(initalFile != NULL && encryptedFile != NULL && decryptedFile != NULL);
 
-  encryptTxt(initalFile, encryptedFile, e, n);
-  decryptTxt(encryptedFile, decryptedFile, d, n);
+  encryptTxt(initalFile, encryptedFile, e, binEArr, binENumberOfBits, n);
+  decryptTxt(encryptedFile, decryptedFile, d, binDArr, binDNumberOfBits, n);
 
   fclose(initalFile);
   fclose(encryptedFile);
