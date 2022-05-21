@@ -18,8 +18,8 @@ int main() {
   if (test == 1) {
     integrationTests();
   }
-  uint64_t p = 131071;
-  uint64_t q = 8191;
+  uint64_t p = 143669;
+  uint64_t q = 7159;
   uint64_t n = p * q;
   uint64_t phiResult = phi(p, q);
   uint64_t e;
