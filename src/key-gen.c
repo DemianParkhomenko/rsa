@@ -3,19 +3,19 @@
 
 uint64_t phi(uint64_t p, uint64_t q) { return (p - 1) * (q - 1); }
 
-uint64_t eea(uint64_t phiResult, uint64_t e, uint64_t *pD) {
+uint64_t eea(uint64_t r0, uint64_t r1, uint64_t *pD) {
   uint64_t t0 = 0, t1 = 1, i = 2, ri;
   do {
-    ri = phiResult % e;
-    *pD = t0 - (phiResult - ri) / e * t1;
-    phiResult = e;
-    e = ri;
+    ri = r0 % r1;
+    *pD = t0 - (r0 - ri) / r1 * t1;
+    r0 = r1;
+    r1 = ri;
     t0 = t1;
     t1 = *pD;
     i++;
   } while (ri != 0);
   *pD = t0;
-  return phiResult;
+  return r0;
 }
 
 short fulfilBinArray(short bin[64], uint64_t num) {
@@ -48,4 +48,5 @@ void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
       return;
     }
   }
+  printf("Error: can not generate keys.\n");
 }
