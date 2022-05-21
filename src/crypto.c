@@ -1,15 +1,26 @@
+#include <assert.h>
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 
 uint64_t exponentAndMod(uint64_t num, uint64_t exponent, uint64_t mod) {
-  int res = 1;
+  uint64_t res = num;
+  int i = 0;
+  int bin[64];
+
   while (exponent > 0) {
-    if (exponent & 1) {
-      res = res * num % mod;
-    }
-    exponent = exponent >> 1;
-    num = num * num % mod;
+    bin[i] = (exponent % 2) == 1;
+    exponent /= 2;
+    i++;
+  }
+
+  i--; //* /0/0 second bit from the left
+
+  while (i > 0) {
+    res = (res * res) % mod;
+    if (1 == bin[--i]) {
+      res = (res * num) % mod;
+    };
   }
   return res;
 }
