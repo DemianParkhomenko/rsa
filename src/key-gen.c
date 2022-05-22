@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 uint64_t phi(uint64_t p, uint64_t q) { return (p - 1) * (q - 1); }
 
@@ -13,24 +14,24 @@ uint64_t eea(uint64_t r0, uint64_t r1, uint64_t *pD) {
     t0 = t1;
     t1 = *pD;
     i++;
-  } while (ri != 0);
+  } while (0 != ri);
   *pD = t0;
   return r0;
 }
 
-short fulfilBinArray(short bin[64], uint64_t num) {
+short fulfilBinArray(char bin[64], uint64_t num) {
   int i = 0;
-  while (num > 0) {
-    bin[i] = (num % 2) == 1;
-    num /= 2;
+  while (num) {
+    bin[i] = (num & 1) + '0';
+    num = num >> 1;
     i++;
   }
   return i;
 }
 
 void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
-                   short binEArr[64], short *binENumberOfBits,
-                   short binDArr[64], short *binDNumberOfBits) {
+                   char binEArr[64], short *binENumberOfBits, char binDArr[64],
+                   short *binDNumberOfBits) {
   uint64_t smallValuesForE[] = {3, 5, 17, 257, 65537};
   size_t size = sizeof smallValuesForE / sizeof smallValuesForE[0];
   for (int i = 0; i < size; i++) {
@@ -45,8 +46,9 @@ void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
       *binENumberOfBits = fulfilBinArray(binEArr, smallValuesForE[i]);
       *binDNumberOfBits = fulfilBinArray(binDArr, *pD);
 
-      return;
+      return; //* successful key generating
     }
   }
-  printf("Error: can not generate keys.\n");
+  printf("Error: can not generate keys. With phiResult: %llu\n", *pPhiResult);
+  exit(1);
 }

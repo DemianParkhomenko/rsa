@@ -2,20 +2,18 @@
 #include "crypto.h"
 #include "key-gen.h"
 #include <assert.h>
+#include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
-#define __STDC_FORMAT_MACROS 1
-#include <inttypes.h>
 
 const char *INITIAL_FILE_PATH = "./txt/initial.txt";
 const char *ENCRYPTED_FILE_PATH = "./txt/encrypted.txt";
 const char *DECRYPTED_FILE_PATH = "./txt/decrypted.txt";
 
-//* if test == 1. All tests run on the startup
-#define test 1
+#define runTest 1
 
 int main() {
-  if (test == 1) {
+  if (runTest == 1) {
     integrationTests();
   }
   uint64_t p = 143669;
@@ -24,9 +22,9 @@ int main() {
   uint64_t phiResult = phi(p, q);
   uint64_t e;
   uint64_t d;
-  short binEArr[64];
+  char binEArr[64];
   short binENumberOfBits;
-  short binDArr[64];
+  char binDArr[64];
   short binDNumberOfBits;
   keyGeneration(&phiResult, &e, &d, binEArr, &binENumberOfBits, binDArr,
                 &binDNumberOfBits);

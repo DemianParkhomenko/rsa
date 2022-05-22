@@ -1,16 +1,14 @@
-#include <assert.h>
-#include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 
-uint64_t exponentAndMod(uint64_t num, uint64_t exponent, short binExponent[64],
+uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
                         short binExpNumberOfBits, uint64_t mod) {
   uint64_t res = num;
-  binExpNumberOfBits--; //* /0/0 second bit from the left
+  binExpNumberOfBits--; //* /0/0 second bit from left
 
   while (binExpNumberOfBits > 0) {
     res = (res * res) % mod;
-    if (1 == binExponent[--binExpNumberOfBits]) {
+    if ('1' == binExponent[--binExpNumberOfBits]) {
       res = (res * num) % mod;
     };
   }
@@ -18,7 +16,7 @@ uint64_t exponentAndMod(uint64_t num, uint64_t exponent, short binExponent[64],
 }
 
 void encryptTxt(FILE *initialFile, FILE *encryptedFile, uint64_t e,
-                short binE[64], short binENumberOfBits, uint64_t n) {
+                char binE[64], short binENumberOfBits, uint64_t n) {
   char c;
   uint64_t num;
   do {
@@ -32,11 +30,11 @@ void encryptTxt(FILE *initialFile, FILE *encryptedFile, uint64_t e,
 }
 
 void decryptTxt(FILE *encryptedFile, FILE *decryptedFile, uint64_t d,
-                short binD[64], short binDNumberOfBits, uint64_t n) {
+                char binD[64], short binDNumberOfBits, uint64_t n) {
   uint64_t num;
   fseek(encryptedFile, 0, SEEK_SET);
   while (fscanf(encryptedFile, "%llu", &num) != EOF) {
     num = exponentAndMod(num, d, binD, binDNumberOfBits, n);
-    fprintf(decryptedFile, "%c", num);
+    fprintf(decryptedFile, "%c", num); //* print char
   }
 }

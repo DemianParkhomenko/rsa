@@ -11,9 +11,9 @@ void makeTest(uint64_t p, uint64_t q, char x) {
   uint64_t phiResult = phi(p, q);
   uint64_t e;
   uint64_t d;
-  short binEArr[64];
+  char binEArr[64];
   short binENumberOfBits;
-  short binDArr[64];
+  char binDArr[64];
   short binDNumberOfBits;
   keyGeneration(&phiResult, &e, &d, binEArr, &binENumberOfBits, binDArr,
                 &binDNumberOfBits);
@@ -51,6 +51,7 @@ void integrationTests() {
   makeTest(7159, 56519, 'I');
   makeTest(69031, 6359, 'N');
   makeTest(14771, 113083, 'E');
+  
   printf("\nTest with small numbers\n");
   makeTest(3, 11,
            '\0'); //*  the binary value of the plaintext x must be less than n
