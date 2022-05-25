@@ -33,7 +33,7 @@
       "name": "run all",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}/main.out",
+      "program": "${workspaceRoot}/main.out",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",

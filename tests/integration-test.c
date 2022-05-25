@@ -29,17 +29,17 @@ void testRSA(uint64_t p, uint64_t q, char x) {
       (char)exponentAndMod(encrypted, d, binDArr, binDNumberOfBits, n);
   //*
 
-  printf("\n%sTest with p: %d, q: %d is valid.%s\n", GREEN, p, q, RESET);
+  printf("\n%sTest with p: %lu, q: %lu is valid.%s\n", GREEN, p, q, RESET);
   printf("• p: %" PRIu64 "\n"
          "• q: %" PRIu64 "\n"
          "• n: %" PRIu64 "\n"
          "• phiResult: %" PRIu64 "\n"
          "• e: %" PRIu64 "\n"
          "• d: %" PRIu64 "\n"
-         "• gcd(phiResult,e) = %d\n"
-         "• e * d mod phi(n) = %d\n"
+         "• gcd(phiResult,e) = %lu\n"
+         "• e * d mod phi(n) = %lu\n"
          "• initial text: %c\n"
-         "• encrypted text: %d\n"
+         "• encrypted text: %lu\n"
          "• decrypted text: %c\n",
          p, q, n, phiResult, e, d, gcdPhiResultAndE, modInverseResEAndD, x,
          encrypted, decrypted);
@@ -59,7 +59,7 @@ void integrationTests() {
   testRSA(69031, 6359, 'N');
   testRSA(14771, 113083, 'E');
 
-  printf("\nTest with small numbers\n");
+  printf("\nTest with small numbers\nInital text is null character\n");
   testRSA(3, 11,
           '\0'); //*  the binary value of the plaintext x must be less than n
   //* so use null character which has 0 binary representation in ASCII table for

@@ -25,7 +25,7 @@ void encryptTxt(FILE *initialFile, FILE *encryptedFile, uint64_t e,
       return;
     }
     num = exponentAndMod(c, e, binE, binENumberOfBits, n);
-    fprintf(encryptedFile, " %llu", num);
+    fprintf(encryptedFile, " %lu", num);
   } while (1);
 }
 
@@ -33,8 +33,8 @@ void decryptTxt(FILE *encryptedFile, FILE *decryptedFile, uint64_t d,
                 char binD[64], short binDNumberOfBits, uint64_t n) {
   uint64_t num;
   fseek(encryptedFile, 0, SEEK_SET);
-  while (fscanf(encryptedFile, "%llu", &num) != EOF) {
+  while (fscanf(encryptedFile, "%lu", &num) != EOF) {
     num = exponentAndMod(num, d, binD, binDNumberOfBits, n);
-    fprintf(decryptedFile, "%c", num); //* print char
+    fprintf(decryptedFile, "%c", (char)num); //* print char
   }
 }

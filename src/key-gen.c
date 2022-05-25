@@ -49,6 +49,6 @@ void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
       return; //* successful key generating
     }
   }
-  printf("Error: can not generate keys. With phiResult: %llu\n", *pPhiResult);
+  printf("Error: can not generate keys. With phiResult: %lu\n", *pPhiResult);
   exit(1);
 }
