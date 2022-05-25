@@ -7,7 +7,7 @@
 const char *GREEN = "\033[0;32m";
 const char *RESET = "\033[0m";
 
-void makeTest(uint64_t p, uint64_t q, char x) {
+void testRSA(uint64_t p, uint64_t q, char x) {
   uint64_t n = p * q;
   uint64_t phiResult = phi(p, q);
   uint64_t e;
@@ -18,14 +18,16 @@ void makeTest(uint64_t p, uint64_t q, char x) {
   short binDNumberOfBits;
   keyGeneration(&phiResult, &e, &d, binEArr, &binENumberOfBits, binDArr,
                 &binDNumberOfBits);
+  uint64_t modInverseResEAndD = e * d % phiResult;
 
+  //* test keys generation
   uint64_t dummyD; //*don't reassign private key
   uint64_t gcdPhiResultAndE = eea(phiResult, e, &dummyD);
-  uint64_t modInverseResEAndD = e * d % phiResult;
   uint64_t encrypted =
       exponentAndMod((uint64_t)x, e, binEArr, binENumberOfBits, n);
   char decrypted =
       (char)exponentAndMod(encrypted, d, binDArr, binDNumberOfBits, n);
+  //*
 
   printf("\n%sTest with p: %d, q: %d is valid.%s\n", GREEN, p, q, RESET);
   printf("• p: %" PRIu64 "\n"
@@ -38,7 +40,7 @@ void makeTest(uint64_t p, uint64_t q, char x) {
          "• e * d mod phi(n) = %d\n"
          "• initial text: %c\n"
          "• encrypted text: %d\n"
-         "• encrypted text: %c\n",
+         "• decrypted text: %c\n",
          p, q, n, phiResult, e, d, gcdPhiResultAndE, modInverseResEAndD, x,
          encrypted, decrypted);
   assert(e < n);
@@ -49,17 +51,17 @@ void makeTest(uint64_t p, uint64_t q, char x) {
 
 void integrationTests() {
   printf("\nRunning tests...\n");
-  makeTest(2311, 78577, 'U');
-  makeTest(45433, 92377, 'K');
-  makeTest(159979, 28051, 'R');
-  makeTest(100129, 25033, 'A');
-  makeTest(7159, 56519, 'I');
-  makeTest(69031, 6359, 'N');
-  makeTest(14771, 113083, 'E');
+  testRSA(26497, 78577, 'U');
+  testRSA(45433, 92377, 'K');
+  testRSA(159979, 28051, 'R');
+  testRSA(100129, 25033, 'A');
+  testRSA(16871, 56519, 'I');
+  testRSA(69031, 6359, 'N');
+  testRSA(14771, 113083, 'E');
 
   printf("\nTest with small numbers\n");
-  makeTest(3, 11,
-           '\0'); //*  the binary value of the plaintext x must be less than n
+  testRSA(3, 11,
+          '\0'); //*  the binary value of the plaintext x must be less than n
   //* so use null character which has 0 binary representation in ASCII table for
   //* small p and q (p*q = n)
 }

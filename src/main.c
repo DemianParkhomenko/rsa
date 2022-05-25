@@ -17,7 +17,7 @@ int main() {
     integrationTests();
   }
   uint64_t p = 143669;
-  uint64_t q = 28051;
+  uint64_t q = 29569;
   uint64_t n = p * q;
   uint64_t phiResult = phi(p, q);
   uint64_t e;

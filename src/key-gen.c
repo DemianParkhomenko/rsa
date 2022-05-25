@@ -32,7 +32,7 @@ short fulfilBinArray(char bin[64], uint64_t num) {
 void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
                    char binEArr[64], short *binENumberOfBits, char binDArr[64],
                    short *binDNumberOfBits) {
-  uint64_t smallValuesForE[] = {3, 5, 17, 257, 65537};
+  uint64_t smallValuesForE[] = {3, 5, 7, 11, 13, 17, 19, 257, 65537};
   size_t size = sizeof smallValuesForE / sizeof smallValuesForE[0];
   for (int i = 0; i < size; i++) {
     int gcd = eea(*pPhiResult, smallValuesForE[i],
