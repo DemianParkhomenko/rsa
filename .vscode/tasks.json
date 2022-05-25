@@ -8,10 +8,10 @@
       "args": [
         "-fdiagnostics-color=always",
         "-g",
-        "${fileDirname}/*.c", //* compile all .c files /0/0 "/"
-        "../tests/*.c",
+        "${workspaceFolder}/src/*.c", //* compile all .c files /0/0 "/"
+        "${workspaceFolder}/tests/*.c",
         "-o",
-        "main.out",
+        "${workspaceFolder}/main.out",
         "-lm" //*means "link math.h". Must be add the end of flags
       ],
       "options": {

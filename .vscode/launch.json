@@ -4,7 +4,7 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-/*    {
+    {
       "name": "run one",
       "type": "cppdbg",
       "request": "launch",
@@ -28,7 +28,7 @@
         }
       ],
       "miDebuggerPath": "/usr/bin/gdb"
-    },  */
+    },
     {
       "name": "run all",
       "type": "cppdbg",
