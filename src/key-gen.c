@@ -34,19 +34,24 @@ void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
                    short *binDNumberOfBits) {
   uint64_t smallValuesForE[] = {3, 5, 7, 11, 13, 17, 19, 257, 65537};
   size_t size = sizeof smallValuesForE / sizeof smallValuesForE[0];
+  uint64_t tempD;
+
   for (int i = 0; i < size; i++) {
-    int gcd = eea(*pPhiResult, smallValuesForE[i],
-                  pD); //* private key creates and assigns in eea
-    if (1 == gcd && smallValuesForE[i] < *pPhiResult &&
-        *pD * smallValuesForE[i] % *pPhiResult == 1 &&
-        smallValuesForE[i] != *pD) {
+
+    int gcd = eea(*pPhiResult, smallValuesForE[i], &tempD);
+
+    short areValidKeys = (1 == gcd && smallValuesForE[i] < *pPhiResult &&
+                          tempD * smallValuesForE[i] % *pPhiResult == 1 &&
+                          smallValuesForE[i] != tempD);
+
+    if (areValidKeys) {
 
       *pE = smallValuesForE[i];
-
+      *pD = tempD;
       *binENumberOfBits = fulfilBinArray(binEArr, smallValuesForE[i]);
       *binDNumberOfBits = fulfilBinArray(binDArr, *pD);
 
-      return; //* successful key generating
+      return;
     }
   }
   printf("Error: can not generate keys. With phiResult: %lu\n", *pPhiResult);
