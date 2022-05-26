@@ -1,14 +1,13 @@
 #include "../tests/integration-test.h"
 #include "crypto.h"
 #include "key-gen.h"
-#include <assert.h>
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 
-const char *INITIAL_FILE_PATH = "./txt/initial.txt";
-const char *ENCRYPTED_FILE_PATH = "./txt/encrypted.txt";
-const char *DECRYPTED_FILE_PATH = "./txt/decrypted.txt";
+char *INITIAL_FILE_PATH = "./txt/initial.txt";
+char *ENCRYPTED_FILE_PATH = "./txt/encrypted.txt";
+char *DECRYPTED_FILE_PATH = "./txt/decrypted.txt";
 
 #define runTest 1
 
@@ -38,16 +37,9 @@ int main() {
          "• d: %" PRIu64 "\n",
          p, q, n, phiResult, e, d);
 
-  FILE *initalFile = fopen(INITIAL_FILE_PATH, "r");
-  FILE *encryptedFile = fopen(ENCRYPTED_FILE_PATH, "w+");
-  FILE *decryptedFile = fopen(DECRYPTED_FILE_PATH, "w");
-  assert(initalFile != NULL && encryptedFile != NULL && decryptedFile != NULL);
-
-  encryptTxt(initalFile, encryptedFile, e, binEArr, binENumberOfBits, n);
-  decryptTxt(encryptedFile, decryptedFile, d, binDArr, binDNumberOfBits, n);
-
-  fclose(initalFile);
-  fclose(encryptedFile);
-  fclose(decryptedFile);
+  encryptTxt(INITIAL_FILE_PATH, ENCRYPTED_FILE_PATH, e, binEArr,
+             binENumberOfBits, n);
+  decryptTxt(ENCRYPTED_FILE_PATH, DECRYPTED_FILE_PATH, d, binDArr,
+             binDNumberOfBits, n);
   return 0;
 }

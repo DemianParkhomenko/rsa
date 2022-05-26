@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
                         short binExpNumberOfBits, uint64_t mod) {
@@ -15,26 +16,39 @@ uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
   return res;
 }
 
-void encryptTxt(FILE *initialFile, FILE *encryptedFile, uint64_t e,
+void encryptTxt(char *initialFileName, char *encryptedFileName, uint64_t e,
                 char binE[64], short binENumberOfBits, uint64_t n) {
+  FILE *initialFile = fopen(initialFileName, "r");
+  FILE *encryptedFile = fopen(encryptedFileName, "w");
+  if (NULL == initialFile || NULL == encryptedFile) {
+    printf("Can not open file for encrypting.\n");
+    exit(1);
+  }
+
   char c;
   uint64_t num;
-  do {
-    c = fgetc(initialFile);
-    if (feof(initialFile)) {
-      return;
-    }
+  while ((c = fgetc(initialFile)) != EOF) {
     num = exponentAndMod(c, e, binE, binENumberOfBits, n);
     fprintf(encryptedFile, " %lu", num);
-  } while (1);
+  }
+  fclose(initialFile);
+  fclose(encryptedFile);
 }
 
-void decryptTxt(FILE *encryptedFile, FILE *decryptedFile, uint64_t d,
+void decryptTxt(char *encryptedFileName, char *decryptedFileName, uint64_t d,
                 char binD[64], short binDNumberOfBits, uint64_t n) {
+  FILE *encryptedFile = fopen(encryptedFileName, "r");
+  FILE *decryptedFile = fopen(decryptedFileName, "w");
+  if (NULL == encryptedFile || NULL == decryptedFile) {
+    printf("Can not open file for decrypting.\n");
+    exit(1);
+  }
+
   uint64_t num;
-  fseek(encryptedFile, 0, SEEK_SET);
   while (fscanf(encryptedFile, "%lu", &num) != EOF) {
     num = exponentAndMod(num, d, binD, binDNumberOfBits, n);
     fprintf(decryptedFile, "%c", (char)num); //* print char
   }
+  fclose(encryptedFile);
+  fclose(decryptedFile);
 }
