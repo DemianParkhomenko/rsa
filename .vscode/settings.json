@@ -10,6 +10,7 @@
     "assert.h": "c",
     "inttypes.h": "c",
     "integration-test.h": "c",
-    "key-gen.h": "c"
+    "key-gen.h": "c",
+    "uchar.h": "c"
   }
 }

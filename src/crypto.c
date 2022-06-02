@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <uchar.h>
 
 uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
                         short binExpNumberOfBits, uint64_t mod) {
@@ -25,7 +26,7 @@ void encryptTxt(char *initialFileName, char *encryptedFileName, uint64_t e,
     exit(1);
   }
 
-  char c;
+  char32_t c;
   uint64_t num;
   while ((c = fgetc(initialFile)) != EOF) {
     num = exponentAndMod(c, e, binE, binENumberOfBits, n);
@@ -47,7 +48,7 @@ void decryptTxt(char *encryptedFileName, char *decryptedFileName, uint64_t d,
   uint64_t num;
   while (fscanf(encryptedFile, "%lu", &num) != EOF) {
     num = exponentAndMod(num, d, binD, binDNumberOfBits, n);
-    fprintf(decryptedFile, "%c", (char)num); //* print char
+    fprintf(decryptedFile, "%c", (char32_t)num); 
   }
   fclose(encryptedFile);
   fclose(decryptedFile);

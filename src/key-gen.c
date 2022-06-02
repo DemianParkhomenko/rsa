@@ -5,6 +5,11 @@
 uint64_t phi(uint64_t p, uint64_t q) { return (p - 1) * (q - 1); }
 
 uint64_t eea(uint64_t r0, uint64_t r1, uint64_t *pD) {
+  if (r0 < r1) {
+    printf("The wrong input in eea algorithm r0:%lu is smaller than r1:%lu", r0,
+           r1);
+    exit(1);
+  }
   uint64_t t0 = 0, t1 = 1, i = 2, ri;
   do {
     ri = r0 % r1;
