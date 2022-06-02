@@ -1,3 +1,10 @@
+
+/*
+2021/2022
+ТР-14
+Пархоменко Дем'ян
+Курсова робота на тему:"Шифрування даних методом RSA"
+*/
 #include "../tests/integration-test.h"
 #include "crypto.h"
 #include "key-gen.h"
