@@ -36,10 +36,10 @@ void testRSA(uint64_t p, uint64_t q, char x) {
          "• phiResult: %" PRIu64 "\n"
          "• e: %" PRIu64 "\n"
          "• d: %" PRIu64 "\n"
-         "• gcd(phiResult,e) = %lu\n"
-         "• e * d mod phi(n) = %lu\n"
+         "• gcd(phiResult,e) = %" PRIu64 "\n"
+         "• e * d mod phi(n) = %" PRIu64 "\n"
          "• initial text: %c\n"
-         "• encrypted text: %lu\n"
+         "• encrypted text: %" PRIu64 "\n"
          "• decrypted text: %c\n",
          p, q, n, phiResult, e, d, gcdPhiResultAndE, modInverseResEAndD, x,
          encrypted, decrypted);

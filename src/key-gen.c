@@ -1,3 +1,4 @@
+#include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,6 +60,7 @@ void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
       return;
     }
   }
-  printf("Error: can not generate keys. With phiResult: %lu\n", *pPhiResult);
+  printf("Error: can not generate keys. With phiResult: %" PRIu64 "\n",
+         *pPhiResult);
   exit(1);
 }
