@@ -7,7 +7,9 @@
 const char *GREEN = "\033[0;32m";
 const char *RESET = "\033[0m";
 
+//todo generate primes
 void testRSA(uint64_t p, uint64_t q, char x) {
+  // todo learn about namespaces
   uint64_t n = p * q;
   uint64_t phiResult = phi(p, q);
   uint64_t e;
@@ -16,6 +18,7 @@ void testRSA(uint64_t p, uint64_t q, char x) {
   short binENumberOfBits;
   char binDArr[64];
   short binDNumberOfBits;
+  // todo use structures
   keyGeneration(&phiResult, &e, &d, binEArr, &binENumberOfBits, binDArr,
                 &binDNumberOfBits);
   uint64_t modInverseResEAndD = e * d % phiResult;
@@ -64,4 +67,4 @@ void integrationTests() {
           '\0'); //*  the binary value of the plaintext x must be less than n
   //* so use null character which has 0 binary representation in ASCII table for
   //* small p and q (p*q = n)
-}
+} // todo does it work well?

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <uchar.h>
-
+//todo research Chinese reminder theorem
 uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
                         short binExpNumberOfBits, uint64_t mod) {
   uint64_t res = num;

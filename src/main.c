@@ -1,10 +1,12 @@
-
 /*
 2021/2022
 ТР-14
 Пархоменка Дем'яна
 Курсова робота на тему:"Шифрування даних методом RSA"
 */
+// todo research well-organized libs
+// todo add RSA signature
+// todo add mixes for often repeated symbols
 #include "../tests/integration-test.h"
 #include "crypto.h"
 #include "key-gen.h"
