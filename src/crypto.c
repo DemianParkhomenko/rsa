@@ -1,8 +1,10 @@
+#include "./types/keys.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <uchar.h>
-//todo research Chinese reminder theorem
+
+// todo research Chinese reminder theorem
 uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
                         short binExpNumberOfBits, uint64_t mod) {
   uint64_t res = num;
@@ -24,8 +26,8 @@ void checkNullFilePointer(FILE *file, char *fileName) {
   }
 }
 
-void encryptTxt(char *initialFileName, char *encryptedFileName, uint64_t e,
-                char binE[64], short binENumberOfBits, uint64_t n) {
+void encryptTxt(char *initialFileName, char *encryptedFileName,
+                struct Key *public, uint64_t n) {
   FILE *initialFile = fopen(initialFileName, "r");
   FILE *encryptedFile = fopen(encryptedFileName, "w");
   checkNullFilePointer(initialFile, initialFileName);
@@ -34,15 +36,16 @@ void encryptTxt(char *initialFileName, char *encryptedFileName, uint64_t e,
   char32_t c;
   uint64_t num;
   while ((c = fgetc(initialFile)) != EOF) {
-    num = exponentAndMod(c, e, binE, binENumberOfBits, n);
+    num = exponentAndMod((uint64_t)c, public->key, public->binKey,
+                         public->binKeyNumberOfBits, n);
     fprintf(encryptedFile, " %lu", num);
   }
   fclose(initialFile);
   fclose(encryptedFile);
 }
 
-void decryptTxt(char *encryptedFileName, char *decryptedFileName, uint64_t d,
-                char binD[64], short binDNumberOfBits, uint64_t n) {
+void decryptTxt(char *encryptedFileName, char *decryptedFileName,
+                struct Key *private, uint64_t n) {
   FILE *encryptedFile = fopen(encryptedFileName, "r");
   FILE *decryptedFile = fopen(decryptedFileName, "w");
   checkNullFilePointer(encryptedFile, encryptedFileName);
@@ -50,7 +53,8 @@ void decryptTxt(char *encryptedFileName, char *decryptedFileName, uint64_t d,
 
   uint64_t num;
   while (fscanf(encryptedFile, "%lu", &num) != EOF) {
-    num = exponentAndMod(num, d, binD, binDNumberOfBits, n);
+    num = exponentAndMod(num, private->key, private->binKey,
+                         private->binKeyNumberOfBits, n);
     fprintf(decryptedFile, "%c", (char32_t)num);
   }
   fclose(encryptedFile);

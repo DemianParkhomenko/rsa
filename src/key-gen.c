@@ -1,3 +1,4 @@
+#include "./types/keys.h"
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -35,9 +36,8 @@ short fulfilBinArray(char bin[64], uint64_t num) {
   return i;
 }
 
-void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
-                   char binEArr[64], short *binENumberOfBits, char binDArr[64],
-                   short *binDNumberOfBits) {
+void keyGeneration(uint64_t *pPhiResult, struct Key *pPrivate,
+                   struct Key *pPublic) {
   uint64_t smallValuesForE[] = {3, 5, 7, 11, 13, 17, 19, 257, 65537};
   size_t size = sizeof smallValuesForE / sizeof smallValuesForE[0];
   uint64_t tempD;
@@ -52,10 +52,12 @@ void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
 
     if (areValidKeys) {
 
-      *pE = smallValuesForE[i];
-      *pD = tempD;
-      *binENumberOfBits = fulfilBinArray(binEArr, smallValuesForE[i]);
-      *binDNumberOfBits = fulfilBinArray(binDArr, *pD);
+      pPublic->key = smallValuesForE[i];
+      pPublic->binKeyNumberOfBits =
+          fulfilBinArray(pPublic->binKey, smallValuesForE[i]);
+
+      pPrivate->key = tempD;
+      pPrivate->binKeyNumberOfBits = fulfilBinArray(pPrivate->binKey, tempD);
 
       return;
     }

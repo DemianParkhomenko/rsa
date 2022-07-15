@@ -8,6 +8,7 @@
 // todo add RSA signature
 // todo add mixes for often repeated symbols
 #include "../tests/integration-test.h"
+#include "./types/keys.h"
 #include "crypto.h"
 #include "key-gen.h"
 #include <inttypes.h>
@@ -24,18 +25,15 @@ int main() {
   if (runTest == 1) {
     integrationTests();
   }
+  // todo put all computing to keyGeneration function
   uint64_t p = 143669;
   uint64_t q = 29569;
   uint64_t n = p * q;
   uint64_t phiResult = phi(p, q);
-  uint64_t e;
-  uint64_t d;
-  char binEArr[64];
-  short binENumberOfBits;
-  char binDArr[64];
-  short binDNumberOfBits;
-  keyGeneration(&phiResult, &e, &d, binEArr, &binENumberOfBits, binDArr,
-                &binDNumberOfBits);
+  struct Key public;
+  struct Key private;
+
+  keyGeneration(&phiResult, &private, &public);
 
   printf("\nLogs from main:\n"
          "• p: %" PRIu64 "\n"
@@ -44,11 +42,9 @@ int main() {
          "• phiResult: %" PRIu64 "\n"
          "• e: %" PRIu64 "\n"
          "• d: %" PRIu64 "\n",
-         p, q, n, phiResult, e, d);
+         p, q, n, phiResult, public.key, private.key);
 
-  encryptTxt(INITIAL_FILE_PATH, ENCRYPTED_FILE_PATH, e, binEArr,
-             binENumberOfBits, n);
-  decryptTxt(ENCRYPTED_FILE_PATH, DECRYPTED_FILE_PATH, d, binDArr,
-             binDNumberOfBits, n);
+  encryptTxt(INITIAL_FILE_PATH, ENCRYPTED_FILE_PATH, &public, n);
+  decryptTxt(ENCRYPTED_FILE_PATH, DECRYPTED_FILE_PATH, &private, n);
   return 0;
 }

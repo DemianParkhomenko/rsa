@@ -1,5 +1,6 @@
 #include "../src/crypto.h"
 #include "../src/key-gen.h"
+#include "../src/types/keys.h"
 #include <assert.h>
 #include <inttypes.h>
 #include <stdint.h>
@@ -7,29 +8,25 @@
 const char *GREEN = "\033[0;32m";
 const char *RESET = "\033[0m";
 
-//todo generate primes
+// todo generate primes
 void testRSA(uint64_t p, uint64_t q, char x) {
   // todo learn about namespaces
   uint64_t n = p * q;
   uint64_t phiResult = phi(p, q);
-  uint64_t e;
-  uint64_t d;
-  char binEArr[64];
-  short binENumberOfBits;
-  char binDArr[64];
-  short binDNumberOfBits;
-  // todo use structures
-  keyGeneration(&phiResult, &e, &d, binEArr, &binENumberOfBits, binDArr,
-                &binDNumberOfBits);
-  uint64_t modInverseResEAndD = e * d % phiResult;
+
+  struct Key public;
+  struct Key private;
+
+  keyGeneration(&phiResult, &private, &public);
+  uint64_t modInverseResEAndD = public.key * private.key % phiResult;
 
   //* test keys generation
   uint64_t dummyD; //*don't reassign private key
-  uint64_t gcdPhiResultAndE = eea(phiResult, e, &dummyD);
-  uint64_t encrypted =
-      exponentAndMod((uint64_t)x, e, binEArr, binENumberOfBits, n);
-  char decrypted =
-      (char)exponentAndMod(encrypted, d, binDArr, binDNumberOfBits, n);
+  uint64_t gcdPhiResultAndE = eea(phiResult, public.key, &dummyD);
+  uint64_t encrypted = exponentAndMod((uint64_t)x, public.key, public.binKey,
+                                      public.binKeyNumberOfBits, n);
+  char decrypted = (char)exponentAndMod(encrypted, private.key, private.binKey,
+                                        private.binKeyNumberOfBits, n);
   //*
 
   printf("\n%sTest with p: %lu, q: %lu is valid.%s\n", GREEN, p, q, RESET);
@@ -44,9 +41,9 @@ void testRSA(uint64_t p, uint64_t q, char x) {
          "• initial text: %c\n"
          "• encrypted text: %" PRIu64 "\n"
          "• decrypted text: %c\n",
-         p, q, n, phiResult, e, d, gcdPhiResultAndE, modInverseResEAndD, x,
-         encrypted, decrypted);
-  assert(e < n);
+         p, q, n, phiResult, public.key, private.key, gcdPhiResultAndE,
+         modInverseResEAndD, x, encrypted, decrypted);
+  assert(public.key < n);
   assert(x == decrypted);
   assert(1 == gcdPhiResultAndE);
   assert(1 == modInverseResEAndD);

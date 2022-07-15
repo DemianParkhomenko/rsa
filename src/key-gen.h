@@ -1,4 +1,5 @@
 #pragma once
+#include "./types/keys.h"
 #include <stdint.h>
 
 //* Euler function for two primes numbers
@@ -10,6 +11,5 @@ uint64_t phi(uint64_t p, uint64_t q);
 uint64_t eea(uint64_t r0, uint64_t r1, uint64_t *pD);
 
 //* Generates private and public keys
-void keyGeneration(uint64_t *pPhiResult, uint64_t *pE, uint64_t *pD,
-                   char binEArr[64], short *binENumberOfBits, char binDArr[64],
-                   short *binDNumberOfBits);
+void keyGeneration(uint64_t *pPhiResult, struct Key *pPrivate,
+                   struct Key *pPublic);
