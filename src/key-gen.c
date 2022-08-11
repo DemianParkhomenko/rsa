@@ -47,7 +47,7 @@ void keyGeneration(uint64_t *pPhiResult, struct Key *pPrivate,
     int gcd = eea(*pPhiResult, smallValuesForE[i], &tempD);
 
     short areValidKeys = (1 == gcd && smallValuesForE[i] < *pPhiResult &&
-                          tempD * smallValuesForE[i] % *pPhiResult == 1 &&
+                          (tempD * smallValuesForE[i]) % *pPhiResult == 1 &&
                           smallValuesForE[i] != tempD);
 
     if (areValidKeys) {
