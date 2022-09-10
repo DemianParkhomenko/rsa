@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "run one",
+      "name": "run file",
       "type": "cppdbg",
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}.out",
@@ -30,7 +30,7 @@
       "miDebuggerPath": "/usr/bin/gdb"
     },
     {
-      "name": "run all",
+      "name": "run project",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceRoot}/main.out",
