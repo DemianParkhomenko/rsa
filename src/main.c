@@ -4,9 +4,6 @@
 Пархоменка Дем'яна
 Курсова робота на тему:"Шифрування даних методом RSA"
 */
-// todo research well-organized libs
-// todo add RSA signature
-// todo add mixes for often repeated symbols
 #include "../tests/integration-test.h"
 #include "./types/keys.h"
 #include "crypto.h"
@@ -25,7 +22,6 @@ int main() {
   if (runTest == 1) {
     integrationTests();
   }
-  // todo put all computing to keyGeneration function
   uint64_t p = 143669;
   uint64_t q = 29569;
   uint64_t n = p * q;
