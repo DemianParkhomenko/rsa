@@ -12,9 +12,9 @@
 #include <stdint.h>
 #include <stdio.h>
 
-char* INITIAL_FILE_PATH = "../txt/initial.txt";
-char* ENCRYPTED_FILE_PATH = "../txt/encrypted.txt";
-char* DECRYPTED_FILE_PATH = "../txt/decrypted.txt";
+char* INITIAL_FILE_PATH = "./txt/initial.txt";
+char* ENCRYPTED_FILE_PATH = "./txt/encrypted.txt";
+char* DECRYPTED_FILE_PATH = "./txt/decrypted.txt";
 
 #define runTest 1
 

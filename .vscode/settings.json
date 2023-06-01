@@ -1,5 +1,8 @@
 {
   "files.associations": {
+    "*.env": "dotenv",
+    "*.cpp": "cpp",
+    "*.c": "c",
     "stdio.h": "c",
     "stdlib.h": "c",
     "random": "c",
@@ -14,6 +17,7 @@
     "uchar.h": "c",
     "keys.h": "c",
     "crypto.h": "c",
-    "numbers": "c"
+    "numbers": "c",
+    "errno.h": "c"
   }
 }

@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <uchar.h>
+#include <errno.h>
+#include <string.h>
 
 uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
   short binExpNumberOfBits, uint64_t mod) {
@@ -20,7 +22,7 @@ uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
 
 void checkNullFilePointer(FILE* file, char* fileName) {
   if (NULL == file) {
-    printf("Can not open file: %s.\n", fileName);
+    fprintf(stderr, "Can not open file: %s. %s \n", fileName, strerror(errno));
     exit(1);
   }
 }
