@@ -12,9 +12,9 @@
 #include <stdint.h>
 #include <stdio.h>
 
-char *INITIAL_FILE_PATH = "../txt/initial.txt";
-char *ENCRYPTED_FILE_PATH = "../txt/encrypted.txt";
-char *DECRYPTED_FILE_PATH = "../txt/decrypted.txt";
+char* INITIAL_FILE_PATH = "../txt/initial.txt";
+char* ENCRYPTED_FILE_PATH = "../txt/encrypted.txt";
+char* DECRYPTED_FILE_PATH = "../txt/decrypted.txt";
 
 #define runTest 1
 
@@ -32,13 +32,13 @@ int main() {
   keyGeneration(&phiResult, &private, &public);
 
   printf("\nLogs from main:\n"
-         "• p: %" PRIu64 "\n"
-         "• q: %" PRIu64 "\n"
-         "• n: %" PRIu64 "\n"
-         "• phiResult: %" PRIu64 "\n"
-         "• e: %" PRIu64 "\n"
-         "• d: %" PRIu64 "\n",
-         p, q, n, phiResult, public.key, private.key);
+    "• p: %" PRIu64 "\n"
+    "• q: %" PRIu64 "\n"
+    "• n: %" PRIu64 "\n"
+    "• phiResult: %" PRIu64 "\n"
+    "• e: %" PRIu64 "\n"
+    "• d: %" PRIu64 "\n",
+    p, q, n, phiResult, public.key, private.key);
 
   encryptTxt(INITIAL_FILE_PATH, ENCRYPTED_FILE_PATH, &public, n);
   decryptTxt(ENCRYPTED_FILE_PATH, DECRYPTED_FILE_PATH, &private, n);

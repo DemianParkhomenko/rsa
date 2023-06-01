@@ -5,7 +5,7 @@
 #include <uchar.h>
 
 uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
-                        short binExpNumberOfBits, uint64_t mod) {
+  short binExpNumberOfBits, uint64_t mod) {
   uint64_t res = num;
   binExpNumberOfBits--; //* /0/0 second bit from left
 
@@ -18,17 +18,17 @@ uint64_t exponentAndMod(uint64_t num, uint64_t exponent, char binExponent[64],
   return res;
 }
 
-void checkNullFilePointer(FILE *file, char *fileName) {
+void checkNullFilePointer(FILE* file, char* fileName) {
   if (NULL == file) {
     printf("Can not open file: %s.\n", fileName);
     exit(1);
   }
 }
 
-void encryptTxt(char *initialFileName, char *encryptedFileName,
-                struct Key *public, uint64_t n) {
-  FILE *initialFile = fopen(initialFileName, "r");
-  FILE *encryptedFile = fopen(encryptedFileName, "w");
+void encryptTxt(char* initialFileName, char* encryptedFileName,
+  struct Key* public, uint64_t n) {
+  FILE* initialFile = fopen(initialFileName, "r");
+  FILE* encryptedFile = fopen(encryptedFileName, "w");
   checkNullFilePointer(initialFile, initialFileName);
   checkNullFilePointer(encryptedFile, encryptedFileName);
 
@@ -36,24 +36,24 @@ void encryptTxt(char *initialFileName, char *encryptedFileName,
   uint64_t num;
   while ((c = fgetc(initialFile)) != EOF) {
     num = exponentAndMod((uint64_t)c, public->key, public->binKey,
-                         public->binKeyNumberOfBits, n);
+      public->binKeyNumberOfBits, n);
     fprintf(encryptedFile, " %lu", num);
   }
   fclose(initialFile);
   fclose(encryptedFile);
 }
 
-void decryptTxt(char *encryptedFileName, char *decryptedFileName,
-                struct Key *private, uint64_t n) {
-  FILE *encryptedFile = fopen(encryptedFileName, "r");
-  FILE *decryptedFile = fopen(decryptedFileName, "w");
+void decryptTxt(char* encryptedFileName, char* decryptedFileName,
+  struct Key* private, uint64_t n) {
+  FILE* encryptedFile = fopen(encryptedFileName, "r");
+  FILE* decryptedFile = fopen(decryptedFileName, "w");
   checkNullFilePointer(encryptedFile, encryptedFileName);
   checkNullFilePointer(decryptedFile, decryptedFileName);
 
   uint64_t num;
   while (fscanf(encryptedFile, "%lu", &num) != EOF) {
     num = exponentAndMod(num, private->key, private->binKey,
-                         private->binKeyNumberOfBits, n);
+      private->binKeyNumberOfBits, n);
     fprintf(decryptedFile, "%c", (char32_t)num);
   }
   fclose(encryptedFile);

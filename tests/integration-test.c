@@ -5,8 +5,8 @@
 #include <inttypes.h>
 #include <stdint.h>
 
-const char *GREEN = "\033[0;32m";
-const char *RESET = "\033[0m";
+const char* GREEN = "\033[0;32m";
+const char* RESET = "\033[0m";
 
 void testRSA(uint64_t p, uint64_t q, char x) {
   uint64_t n = p * q;
@@ -22,25 +22,25 @@ void testRSA(uint64_t p, uint64_t q, char x) {
   uint64_t dummyD; //*don't reassign private key
   uint64_t gcdPhiResultAndE = eea(phiResult, public.key, &dummyD);
   uint64_t encrypted = exponentAndMod((uint64_t)x, public.key, public.binKey,
-                                      public.binKeyNumberOfBits, n);
+    public.binKeyNumberOfBits, n);
   char decrypted = (char)exponentAndMod(encrypted, private.key, private.binKey,
-                                        private.binKeyNumberOfBits, n);
+    private.binKeyNumberOfBits, n);
   //*
 
   printf("\n%sTest with p: %lu, q: %lu is valid.%s\n", GREEN, p, q, RESET);
   printf("• p: %" PRIu64 "\n"
-         "• q: %" PRIu64 "\n"
-         "• n: %" PRIu64 "\n"
-         "• phiResult: %" PRIu64 "\n"
-         "• e: %" PRIu64 "\n"
-         "• d: %" PRIu64 "\n"
-         "• gcd(phiResult,e) = %" PRIu64 "\n"
-         "• e * d mod phi(n) = %" PRIu64 "\n"
-         "• initial text: %c\n"
-         "• encrypted text: %" PRIu64 "\n"
-         "• decrypted text: %c\n",
-         p, q, n, phiResult, public.key, private.key, gcdPhiResultAndE,
-         modInverseResEAndD, x, encrypted, decrypted);
+    "• q: %" PRIu64 "\n"
+    "• n: %" PRIu64 "\n"
+    "• phiResult: %" PRIu64 "\n"
+    "• e: %" PRIu64 "\n"
+    "• d: %" PRIu64 "\n"
+    "• gcd(phiResult,e) = %" PRIu64 "\n"
+    "• e * d mod phi(n) = %" PRIu64 "\n"
+    "• initial text: %c\n"
+    "• encrypted text: %" PRIu64 "\n"
+    "• decrypted text: %c\n",
+    p, q, n, phiResult, public.key, private.key, gcdPhiResultAndE,
+    modInverseResEAndD, x, encrypted, decrypted);
   assert(public.key < n);
   assert(x == decrypted);
   assert(1 == gcdPhiResultAndE);
